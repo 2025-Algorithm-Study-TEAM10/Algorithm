@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <sstream>
 
 using namespace std;
 
@@ -7,16 +8,17 @@ int main(){
     int towerNum;
     cin >> towerNum;
 
+    ostringstream oss;
 
     stack<pair<int, int>> tower;   //순서, 값
-    int* result = new int[towerNum];
-    result[0] = 0;
+    int* result = new int[towerNum+1]();
+    result[1] = 0;
 
-    for(int i = 0; i < towerNum; i++){
+    for(int i = 1; i <= towerNum; i++){
         int val;
         cin >> val;
         
-        if(i == 0){
+        if(i == 1){
             tower.push({i, val});
             continue;
         }
@@ -30,11 +32,18 @@ int main(){
             result[i] = 0;
         }
         else{
-            tower.push({i, val});
             result[i] = tower.top().first;
+            tower.push({i, val});
         }
     }
-    
+
+    for(int i = 1; i <= towerNum; i++){
+        oss << result[i] << " ";
+    }
+
+    cout << oss.str();
+
+
 
     delete[] result;
     return 0;
